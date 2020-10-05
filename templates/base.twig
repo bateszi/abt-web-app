@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="referrer" content="origin">
+	<script src="https://kit.fontawesome.com/0c6d9a9829.js" crossorigin="anonymous"></script>
+	<link href="/css/normalize.css" type="text/css" rel="stylesheet">
+	<link href="/css/main.css?v=3" type="text/css" rel="stylesheet">
+	{% block head %}
+		<title>{% block title %}{% endblock %} / Anime Blog Tracker | ABT</title>
+	{% endblock %}
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2675780-4"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-2675780-4');
+	</script>
+</head>
+<body>
+	<div id="mainContainer">
+		<div id="pageHeaderContainer">
+			<div id="pageHeader">
+				{% block pageHeader %}
+					<h1 class="pageHeaderText"><a href="/">Anime Blog Tracker</a></h1>
+				{% endblock %}
+			</div>
+		</div>
+		<div id="content">
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+
+	<script src="/js/main.js?v=3"></script>
+</body>
+</html>

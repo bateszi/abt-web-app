@@ -1,0 +1,223 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #3C4043;
+}
+
+a:link, a:active {
+	color: #1967D2;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #4B11A8;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#mainContainer {
+	padding: 0 0 20px;
+}
+
+#pageHeader {
+	padding: 20px 5px 0 5px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ddd;
+	border-radius: 5px 5px 0 0;
+}
+
+.pageHeaderText {
+	margin: 0 0 10px;
+	text-align: center;
+	font-weight: normal;
+	font-size: 20px;
+}
+
+.searchFormContainer {
+	padding: 0 0 20px;
+}
+
+.post {
+	border: 1px solid #ddd;
+	margin-bottom: 5px;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+}
+
+.postImage {
+	display: none;
+}
+
+.post.hasImage .postImage {
+	display: block;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	height: 173px;
+}
+
+.postTextContainer {
+	padding: 15px;
+}
+
+.postTitle {
+	margin: 0 0 10px;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 20px;
+}
+
+.postText {
+	margin: 0 0 10px;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.postMeta {
+	margin: 0;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+.postDate, .postTags {
+	color: #A4A5A5;
+}
+
+.favicon img {
+	vertical-align: middle;
+}
+
+.postMedia {
+	color: #A4A5A5;
+	margin: 10px 0 0;
+	font-size: 12px;
+}
+
+.inlineFormUi {
+	display: flex;
+}
+
+.textField {
+	border: 1px solid #ddd;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.searchFormInput {
+	flex-grow: 1;
+}
+
+.button, .textField {
+	font-size: 16px;
+	padding: 5px 15px;
+}
+
+.button {
+	border: 1px solid #ddd;
+	background-color: #fff;
+	border-radius: 5px;
+}
+
+.button.searchFormSubmit {
+	border-radius: 0 5px 5px 0;
+	width: 46px;
+	background-color: #3b78e7;
+	color: #fff;
+	border: 0;
+}
+
+#content {
+	margin: 0 5px;
+}
+
+.searchResultsControls {
+	display: flex;
+	align-items: center;
+	margin: 0 0 5px;
+	font-size: 12px;
+	color: #A4A5A5;
+}
+
+.searchSorterContainer {
+	margin: 0;
+}
+
+.searchSorterContainer label {
+	display: none;
+}
+
+.searchResultsInfo {
+	margin: 0;
+	flex-grow: 1;
+}
+
+.addSite {
+	text-align: right;
+	margin: 0;
+}
+
+.post.video .postDescription {
+	display: none;
+}
+
+@media only screen and (min-width: 768px) {
+	.searchResultsControls {
+		margin-bottom: 20px;
+	}
+
+	.post {
+		display: flex;
+		align-items: flex-start;
+		padding: 0;
+		margin-bottom: 60px;
+		border: none;
+	}
+
+	.post.hasImage .postImage {
+		width: 250px;
+		height: 140px;
+	}
+
+	.postImageContainer {
+		order: 2;
+	}
+
+	.postTextContainer {
+		padding: 0 10px 0 0;
+		order: 1;
+		flex-grow: 1;
+	}
+
+	#pageHeaderContainer {
+		border-bottom: 1px solid #ddd;
+		margin-bottom: 20px;
+	}
+
+	#pageHeader {
+		display: flex;
+		align-items: center;
+		padding: 20px;
+		width: 768px;
+		box-sizing: border-box;
+		margin: 0 auto;
+		border-bottom: none;
+	}
+
+	#content {
+		width: 768px;
+		box-sizing: border-box;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.pageHeaderText {
+		margin: 0;
+		padding-right: 20px;
+	}
+
+	.searchFormContainer {
+		padding: 0;
+		flex-grow: 1;
+	}
+}

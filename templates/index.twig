@@ -1,0 +1,98 @@
+{% extends "base.twig" %}
+
+{% block title %}{% if query != '' %}Search results - {{ query }}{% else %}Home{% endif %}{% endblock %}
+
+{% block pageHeader %}
+{{ parent() }}
+
+<div class="searchFormContainer">
+	<form class="searchForm" method="get" action="">
+		<div class="inlineFormUi">
+			<input class="searchFormInput textField" type="text" name="query" id="query" value="{{ query }}" placeholder="Search the archive for..." />
+			<button class="searchFormSubmit searchButton button" type="submit" name="submit"><i class="fas fa-search"></i></button>
+		</div>
+		<input type="hidden" name="start" value="0" />
+	</form>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="searchResultsControls">
+	<p class="searchResultsInfo">
+		{{ numResults }} results{% if numResults > 0 and ttlPages > 1 %}, page {{ pageNumber }} of {{ ttlPages }}{% endif %}
+	</p>
+	<p class="searchSorterContainer">
+		<label for="searchSorter">Sort</label>
+		<select name="sorter" id="searchSorter">
+			<option value="" {% if sorter == "" %}selected="selected"{% endif %}>Relevance</option>
+			<option value="post_pub_date_sorter desc" {% if sorter == "post_pub_date_sorter desc" %}selected="selected"{% endif %}>Newest posts first</option>
+			<option value="post_pub_date_sorter asc" {% if sorter == "post_pub_date_sorter asc" %}selected="selected"{% endif %}>Oldest posts first</option>
+		</select>
+	</p>
+</div>
+
+<div class="posts">
+	{% for result in results %}
+		<div class="post {% if result.video %}video{% endif %} {% if result.post_image != '' %}hasImage{% else %}noImage{% endif %}">
+			<div class="postImageContainer">
+				<a href="{{ result.post_link }}">
+					<div class="postImage" style="background-image: url('{{ result.post_image }}')"></div>
+				</a>
+			</div>
+			<div class="postTextContainer">
+				<h3 class="postTitle">
+					<a href="{{ result.post_link }}" class="postLink">{{ result.post_title }}</a>
+				</h3>
+				<p class="postText">
+					<span class="postDescription">{{ result.post_description }}</span>
+				</p>
+				<p class="postMeta">
+					{% if result.site_host %}
+						<span class="favicon">
+							<img height="16" width="16" src="https://www.google.com/s2/favicons?domain={{ result.site_host }}">
+						</span>
+					{% endif %}
+					<span class="siteName">
+						<a href="/index.php?query=site_name%3A%22{{ result.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ result.site_name }}</a>
+					</span>
+					<span class="siteType">
+						/ <a href="/index.php?query=site_type%3A%22{{ result.site_type|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteType(this); return false;">{{ result.site_type }}</a>
+					</span>
+					<span class="postDate">
+						/ {{ result.post_pub_date_sorter }}
+					</span>
+					{% if result.post_media|length > 0 %}
+						<span class="postTags">
+							/ <i class="fas fa-tags" title="Auto-tagged"></i>
+							{% for mediaTitle in result.post_media %}
+								<a href="/index.php?query=%22{{ mediaTitle|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchByMedia(this); return false;">{{ mediaTitle }}</a>{% if loop.last %}{% else %} / {% endif %}
+							{% endfor %}
+						</span>
+					{% endif %}
+				</p>
+			</div>
+		</div>
+	{% endfor %}
+
+	{% if hasMore %}
+		<div class="showMorePostsFormContainer">
+			<form class="showMorePostsForm" method="get" action="">
+				<input type="hidden" name="query"  value="{{ query }}" />
+				<input type="hidden" name="start"  value="{{ nextOffset }}" />
+				<input type="hidden" name="sorter"  value="{{ sorter }}" />
+				<button class="searchButton pagination button" type="submit" name="submit">
+					Next page
+				</button>
+			</form>
+		</div>
+	{% endif %}
+
+	<p class="addSite">
+		<a href="https://forms.gle/35qYj6yVXP82tLAE9">Add a site to ABT!</a>
+	</p>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
