@@ -1,3 +1,5 @@
 vendor
 templates_cache
 composer.lock
+app-config/config.dev.php
+app-config/config.prod.php

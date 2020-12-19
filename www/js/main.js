@@ -25,7 +25,9 @@ const app = {
 const sortElm = document.getElementById('searchSorter'),
 	queryElm = document.getElementById('query');
 
-sortElm.addEventListener('change', (event) => {
-	app.search(queryElm.value, event.target.value);
-	return true;
-});
+if (sortElm) {
+	sortElm.addEventListener('change', (event) => {
+		app.search(queryElm.value, event.target.value);
+		return true;
+	});
+}

@@ -211,6 +211,23 @@ a:hover {
 		padding: 0 20px;
 	}
 
+	.queue #content {
+		width: 1440px;
+	}
+
+	.queuedSites {
+		width: 100%;
+		border: 1px solid #eee;
+	}
+
+	.queuedSites th {
+		text-align: left;
+	}
+
+	.queuedSites tr:hover {
+		background-color: #eee;
+	}
+
 	.pageHeaderText {
 		margin: 0;
 		padding-right: 20px;

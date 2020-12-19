@@ -1,0 +1,63 @@
+{% extends "base.twig" %}
+
+{% block title %}Queue Manager{% endblock %}
+
+{% block bodyClass %}queue{% endblock %}
+
+{% block pageHeader %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <h2>
+        Sites pending decision
+    </h2>
+    <table class="queuedSites">
+        <thead>
+            <tr>
+                <th>Score</th>
+                <th title="Encountered">Enc.</th>
+                <th>ID</th>
+                <th>FQDN</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for site in sites %}
+            <tr>
+                <td>{{ site.score }}</td>
+                <td>{{ site.encountered }}</td>
+                <td>{{ site.pk_prospect_id }}</td>
+                <td><a href="https://{{ site.fqdn }}" target="_blank" rel="noreferrer">{{ site.fqdn }}</a></td>
+                <td>{{ site.created|date("d M Y") }}</td>
+                <td style="width: 50%">
+                    <form method="post">
+                        <input type="hidden" name="site_id" value="{{ site.pk_prospect_id }}">
+                        <input type="hidden" name="fqdn" value="{{ site.fqdn }}">
+                        <button name="status" value="reject">
+                            Reject
+                        </button>
+                        <button name="status" value="blacklist">
+                            Blacklist
+                        </button>
+                        <input type="text" name="feed_url" placeholder="https://feed-url.io" style="width: 275px" onkeyup="if (this.value !== ''){ this.form.getElementsByClassName('accept')[0].style.display = 'inline-block'; } else { this.form.getElementsByClassName('accept')[0].style.display = 'none'; }">
+                        <button name="status" value="accept" class="accept" style="display: none">
+                            Accept
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p style="text-align: center">
+        <a href="queue.php?added=7days">Only display sites discovered in last 7 days?</a>
+        &mdash;
+        <a href="queue.php">Default</a>
+    </p>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

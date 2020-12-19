@@ -2,6 +2,8 @@
 
 {% block title %}{% if query != '' %}Search results - {{ query }}{% else %}Home{% endif %}{% endblock %}
 
+{% block bodyClass %}index{% endblock %}
+
 {% block pageHeader %}
 {{ parent() }}
 
