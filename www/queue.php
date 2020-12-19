@@ -93,7 +93,7 @@ if (isset($_POST['site_id'])) {
 			break;
 	}
 
-	header('Location: queue.php');
+	header('Location: ' . $_SERVER["REQUEST_URI"]);
 }
 
 if ($db !== false) {
