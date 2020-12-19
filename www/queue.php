@@ -72,6 +72,8 @@ if (isset($_POST['site_id'])) {
 
 	switch ($status) {
 		case "accept":
+			$feedUrl = trim($feedUrl);
+
 			if (!empty($feedUrl)) {
 				addFeed($db, $feedUrl);
 			}
