@@ -152,13 +152,41 @@ a:hover {
 	flex-grow: 1;
 }
 
-.addSite {
-	text-align: right;
+.post.video .postDescription {
+	display: none;
+}
+
+.homepage.showMorePostsFormContainer {
+	margin-bottom: 60px;
+}
+
+.statsContainer {
+	background-color: #eee;
+	padding: 15px;
+}
+
+.statsCard {
+	background-color: #f7f7f7;
+	padding: 15px;
+	border: 1px solid #ddd;
+	margin-bottom: 15px;
+}
+
+.statsHeader {
 	margin: 0;
 }
 
-.post.video .postDescription {
-	display: none;
+.statsCardTitle {
+	margin: 0;
+}
+
+.statsCardList {
+	padding-inline-start: 30px;
+}
+
+.statsSubTitle, .statsCardSubtitle, .statsCardListItem {
+	font-size: 14px;
+	line-height: 20px;
 }
 
 @media only screen and (min-width: 768px) {

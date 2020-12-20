@@ -73,7 +73,7 @@
 	{% endfor %}
 
 	{% if hasMore %}
-		<div class="showMorePostsFormContainer">
+		<div class="showMorePostsFormContainer {% if isHomepage %}homepage{% endif %}">
 			<form class="showMorePostsForm" method="get" action="">
 				<input type="hidden" name="query"  value="{{ query }}" />
 				<input type="hidden" name="start"  value="{{ nextOffset }}" />
@@ -85,9 +85,32 @@
 		</div>
 	{% endif %}
 
-	<p class="addSite">
-		<a href="https://forms.gle/35qYj6yVXP82tLAE9">Add a site to ABT!</a>
-	</p>
+	{% if stats %}
+		<div class="statsContainer">
+			<h3 class="statsHeader">Stats</h3>
+
+			<p class="statsSubTitle">Data collected from past 30 days.</p>
+
+			<div class="statsCard">
+				<h4 class="statsCardTitle">Trending anime</h4>
+				<p class="statsCardSubtitle">Anime tagging is automated, therefore may not be perfectly accurate.</p>
+				<ol class="statsCardList">
+					{% for animeTitle, freq in stats.post_media %}
+						<li class="statsCardListItem"><a href="/index.php?query=&quot;{{ animeTitle|url_encode }}&quot;&sorter=post_pub_date_sorter%20desc">{{ animeTitle }}</a> ({{ freq }} posts)</li>
+					{% endfor %}
+				</ol>
+			</div>
+
+			<div class="statsCard">
+				<h4 class="statsCardTitle">Most prolific anime bloggers</h4>
+				<ol class="statsCardList">
+					{% for siteName, freq in stats.site_name %}
+						<li class="statsCardListItem"><a href="/index.php?query=site_name%3A&quot;{{ siteName|url_encode }}&quot;&sorter=post_pub_date_sorter%20desc">{{ siteName }}</a> ({{ freq }} posts)</li>
+					{% endfor %}
+				</ol>
+			</div>
+		</div>
+	{% endif %}
 </div>
 {% endblock %}
 
