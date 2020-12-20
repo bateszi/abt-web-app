@@ -36,12 +36,7 @@
 
 <div class="posts">
 	{% for result in results %}
-		<div class="post {% if result.video %}video{% endif %} {% if result.post_image != '' %}hasImage{% else %}noImage{% endif %}">
-			<div class="postImageContainer">
-				<a href="{{ result.post_link }}">
-					<div class="postImage" style="background-image: url('{{ result.post_image }}')"></div>
-				</a>
-			</div>
+		<div class="post {% if result.video %}video{% endif %} noImage">
 			<div class="postTextContainer">
 				<h3 class="postTitle">
 					<a href="{{ result.post_link }}" class="postLink">{{ result.post_title }}</a>
