@@ -64,7 +64,7 @@ if (empty($query)) {
 }
 
 $sorter = $_GET['sorter'] ?? 'post_pub_date_sorter desc';
-$rows = 10;
+$rows = 20;
 $start = $_GET['start'] ?? 0;
 
 $searchOptions = [
