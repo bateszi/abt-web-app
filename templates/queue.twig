@@ -41,8 +41,8 @@
                         <button name="status" value="blacklist">
                             Blacklist
                         </button>
-                        <input type="text" name="feed_url" placeholder="https://feed-url.io" style="width: 275px" onkeyup="if (this.value !== ''){ this.form.getElementsByClassName('accept')[0].style.display = 'inline-block'; } else { this.form.getElementsByClassName('accept')[0].style.display = 'none'; }">
-                        <button name="status" value="accept" class="accept" style="display: none">
+                        <input class="queueFeedUrl" type="text" name="feed_url" placeholder="https://feed-url.io" value="{{ site.feed_url }}">
+                        <button name="status" value="accept" class="accept">
                             Accept
                         </button>
                     </form>

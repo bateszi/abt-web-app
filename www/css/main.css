@@ -228,6 +228,10 @@ a:hover {
 		background-color: #eee;
 	}
 
+	.queueFeedUrl {
+		width: 360px;
+	}
+
 	.pageHeaderText {
 		margin: 0;
 		padding-right: 20px;
