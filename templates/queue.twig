@@ -17,7 +17,6 @@
             <tr>
                 <th>Score</th>
                 <th title="Encountered">Enc.</th>
-                <th>ID</th>
                 <th>FQDN</th>
                 <th>Created</th>
                 <th>Actions</th>
@@ -26,9 +25,8 @@
         <tbody>
             {% for site in sites %}
             <tr>
-                <td>{{ site.score }}</td>
+                <td>{{ site.overall }}</td>
                 <td>{{ site.encountered }}</td>
-                <td>{{ site.pk_prospect_id }}</td>
                 <td><a href="https://{{ site.fqdn }}" target="_blank" rel="noreferrer">{{ site.fqdn }}</a></td>
                 <td>{{ site.created|date("d M Y") }}</td>
                 <td style="width: 50%">

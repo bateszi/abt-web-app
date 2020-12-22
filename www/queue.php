@@ -43,14 +43,14 @@ function addSiteToBlacklist(PDO $db, int $id, string $fqdn) {
 	changeSiteStatus($db, $id, 'rejected');
 }
 
-function getSites(PDO $db, $dateFilter = '', $status = 'pending', $order = 'score DESC, encountered DESC', $offset = 0, $limit = 100): array {
+function getSites(PDO $db, $dateFilter = '', $status = 'pending', $order = 'overall DESC, score DESC, encountered DESC', $offset = 0, $limit = 100): array {
 	$dateCondition = '';
 
 	if ($dateFilter === '7days') {
 		$dateCondition = sprintf('AND created >= "%s"', date('Y-m-d H:i:s', strtotime('-1 week')));
 	}
 
-	$query = sprintf("SELECT * 
+	$query = sprintf("SELECT pk_prospect_id, fqdn, feed_url, created, status, score, encountered, (score * encountered) as overall
 		FROM discovered_sites_queue
 		WHERE status = ?
 		%s
