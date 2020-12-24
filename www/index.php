@@ -111,13 +111,16 @@ if ($responseCode === 200) {
 				$postMedia = $solrResult["post_media"] ?? [];
 				$postLink = $solrResult['post_link'] ?? '';
 				$postTitle = $solrResult['post_title'] ?? '';
+				$postId = $solrResult['id'] ?? -1;
 
 				$siteHost = parse_url($postLink, PHP_URL_HOST);
+
 				if (!$siteHost) {
 					$siteHost = '';
 				}
 
 				$results[] = [
+					'id' => $postId,
 					'post_image' => $postImage,
 					'post_link' => $postLink,
 					'post_title' => sanitiseString($postTitle),

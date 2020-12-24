@@ -1,24 +1,6 @@
 <?php
 require_once '../vendor/autoload.php';
-
-function getDbConnection() {
-	$pathToConfig = __DIR__ . '/../app-config/config.php';
-	$config = require $pathToConfig;
-
-	try
-	{
-		return new PDO(
-			sprintf('mysql:host=%s;dbname=%s;charset=utf8', $config['db']['server'], $config['db']['dbName']),
-			$config['db']['user'],
-			$config['db']['pass']
-		);
-	}
-	catch (PDOException $e)
-	{
-	}
-
-	return false;
-}
+require_once '_lib.php';
 
 function addFeed(PDO $db, string $url) {
 	$prepare = $db->prepare("SELECT pk_site_id FROM sites WHERE feed_url = ?");
