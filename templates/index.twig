@@ -20,97 +20,118 @@
 {% endblock %}
 
 {% block content %}
-<div class="searchResultsControls">
-	<p class="searchResultsInfo">
-		{{ numResults }} results{% if numResults > 0 and ttlPages > 1 %}, page {{ pageNumber }} of {{ ttlPages }}{% endif %}
-	</p>
-	<p class="searchSorterContainer">
-		<label for="searchSorter">Sort</label>
-		<select name="sorter" id="searchSorter">
-			<option value="" {% if sorter == "" %}selected="selected"{% endif %}>Relevance</option>
-			<option value="post_pub_date_sorter desc" {% if sorter == "post_pub_date_sorter desc" %}selected="selected"{% endif %}>Newest posts first</option>
-			<option value="post_pub_date_sorter asc" {% if sorter == "post_pub_date_sorter asc" %}selected="selected"{% endif %}>Oldest posts first</option>
-		</select>
-	</p>
-</div>
+<div class="contentContainer row">
+	<div class="mainContainer colMain">
+		<div class="searchResultsControls">
+			<p class="searchResultsInfo">
+				{{ numResults }} results{% if numResults > 0 and ttlPages > 1 %}, page {{ pageNumber }} of {{ ttlPages }}{% endif %}
+			</p>
+		</div>
+		<div class="posts">
+			{% if query == '' %}
+				<h3 class="postsContainerTitle">Newest anime blog posts</h3>
+			{% else %}
+				<h3 class="postsContainerTitle">Your search results</h3>
+			{% endif %}
 
-<div class="posts">
-	{% for result in results %}
-		<div class="post {% if result.video %}video{% endif %} noImage">
-			<div class="postTextContainer">
-				<h3 class="postTitle">
-					<a href="/out.php?id={{ result.id }}" class="postLink">{{ result.post_title }}</a>
-				</h3>
-				<p class="postText">
-					<span class="postDescription">{{ result.post_description }}</span>
-				</p>
-				<p class="postMeta">
-					{% if result.site_host %}
-						<span class="favicon">
-							<img height="16" width="16" src="https://www.google.com/s2/favicons?domain={{ result.site_host }}">
-						</span>
-					{% endif %}
-					<span class="siteName">
-						<a href="/index.php?query=site_name%3A%22{{ result.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ result.site_name }}</a>
-					</span>
-					<span class="siteType">
-						/ <a href="/index.php?query=site_type%3A%22{{ result.site_type|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteType(this); return false;">{{ result.site_type }}</a>
-					</span>
-					<span class="postDate">
-						/ {{ result.post_pub_date_sorter }}
-					</span>
-					{% if result.post_media|length > 0 %}
-						<span class="postTags">
-							/ <i class="fas fa-tags" title="Auto-tagged"></i>
-							{% for mediaTitle in result.post_media %}
-								<a href="/index.php?query=%22{{ mediaTitle|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchByMedia(this); return false;">{{ mediaTitle }}</a>{% if loop.last %}{% else %} / {% endif %}
+			{% for result in results %}
+				<div class="post {% if result.video %}video{% endif %} noImage">
+					<div class="postTextContainer">
+						<h3 class="postTitle">
+							<a href="/out.php?id={{ result.id }}" class="postLink">{{ result.post_title }}</a>
+						</h3>
+						<p class="postText">
+							<span class="postDescription">{{ result.post_description }}</span>
+						</p>
+						<p class="postMeta">
+							{% if result.site_host %}
+								<span class="favicon">
+									<img height="16" width="16" src="https://www.google.com/s2/favicons?domain={{ result.site_host }}">
+								</span>
+							{% endif %}
+							<span class="siteName">
+								<a href="/index.php?query=site_name%3A%22{{ result.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ result.site_name }}</a>
+							</span>
+							<span class="siteType">
+								/ <a href="/index.php?query=site_type%3A%22{{ result.site_type|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteType(this); return false;">{{ result.site_type }}</a>
+							</span>
+							<span class="postDate">
+								/ {{ result.post_pub_date_sorter }}
+							</span>
+							{% if result.post_media|length > 0 %}
+								<span class="postTags">
+									/ <i class="fas fa-tags" title="Auto-tagged"></i>
+									{% for mediaTitle in result.post_media %}
+										<a href="/index.php?query=%22{{ mediaTitle|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchByMedia(this); return false;">{{ mediaTitle }}</a>{% if loop.last %}{% else %} / {% endif %}
+									{% endfor %}
+								</span>
+							{% endif %}
+						</p>
+					</div>
+				</div>
+			{% endfor %}
+
+			{% if hasMore %}
+				<div class="showMorePostsFormContainer">
+					<form class="showMorePostsForm" method="get" action="">
+						<input type="hidden" name="query"  value="{{ query }}" />
+						<input type="hidden" name="start"  value="{{ nextOffset }}" />
+						<input type="hidden" name="sorter"  value="{{ sorter }}" />
+						<button class="searchButton pagination button" type="submit" name="submit">
+							Next page
+						</button>
+					</form>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="sidebarContainer colSide">
+		{% if stats %}
+			<div class="statsContainer">
+				<div class="statsCard">
+					<div class="statsCardHeader">
+						<h4 class="statsCardTitle"><i class="fas fa-film"></i> Trending anime</h4>
+						<p class="statsCardSubtitle">The most discussed anime this week.</p>
+					</div>
+					<div class="statsCardContent">
+						<ol class="statsCardList">
+							{% for animeTitle, freq in stats.trending_media %}
+								<li class="statsCardListItem"><a href="/index.php?query=&quot;{{ animeTitle|url_encode }}&quot;&sorter=post_pub_date_sorter%20desc">{{ animeTitle }}</a></li>
 							{% endfor %}
-						</span>
-					{% endif %}
-				</p>
+						</ol>
+					</div>
+				</div>
+				<div class="statsCard">
+					<div class="statsCardHeader">
+						<h4 class="statsCardTitle"><i class="far fa-paper-plane"></i> Trending posts</h4>
+						<p class="statsCardSubtitle">This week's most clicked new posts.</p>
+					</div>
+					<div class="statsCardContent">
+						<ol class="statsCardList">
+							{% for postTitle, trendingPost in stats.trending_posts %}
+								<li class="statsCardListItem"><a href="/out.php?id={{ trendingPost.id }}">{{ postTitle }}</a> by {{ trendingPost.site_name }}</li>
+							{% endfor %}
+						</ol>
+					</div>
+				</div>
+				<div class="statsCard">
+					<div class="statsCardHeader">
+						<h4 class="statsCardTitle"><i class="fas fa-book-reader"></i> Trending bloggers</h4>
+						<p class="statsCardSubtitle">This week's most clicked anime bloggers.</p>
+					</div>
+					<div class="statsCardContent">
+						<ol class="statsCardList">
+							{% for siteName, ttlViews in stats.trending_bloggers %}
+								<li class="statsCardListItem">
+									<a href="/index.php?query=site_name%3A%22{{ siteName|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ siteName }}</a>
+								</li>
+							{% endfor %}
+						</ol>
+					</div>
+				</div>
 			</div>
-		</div>
-	{% endfor %}
-
-	{% if hasMore %}
-		<div class="showMorePostsFormContainer {% if isHomepage %}homepage{% endif %}">
-			<form class="showMorePostsForm" method="get" action="">
-				<input type="hidden" name="query"  value="{{ query }}" />
-				<input type="hidden" name="start"  value="{{ nextOffset }}" />
-				<input type="hidden" name="sorter"  value="{{ sorter }}" />
-				<button class="searchButton pagination button" type="submit" name="submit">
-					Next page
-				</button>
-			</form>
-		</div>
-	{% endif %}
-
-	{% if stats %}
-		<div class="statsContainer">
-			<h3 class="statsHeader">Stats</h3>
-
-			<p class="statsSubTitle">Data collected from past 30 days.</p>
-
-			<div class="statsCard">
-				<h4 class="statsCardTitle">Trending anime</h4>
-				<p class="statsCardSubtitle">Anime tagging is automated, therefore may not be perfectly accurate.</p>
-				<ol class="statsCardList">
-					{% for animeTitle, freq in stats.post_media %}
-						<li class="statsCardListItem"><a href="/index.php?query=&quot;{{ animeTitle|url_encode }}&quot;&sorter=post_pub_date_sorter%20desc">{{ animeTitle }}</a> ({{ freq }} posts)</li>
-					{% endfor %}
-				</ol>
-			</div>
-
-			<div class="statsCard">
-				<h4 class="statsCardTitle">Most prolific anime bloggers</h4>
-				<ol class="statsCardList">
-					{% for siteName, freq in stats.site_name %}
-						<li class="statsCardListItem"><a href="/index.php?query=site_name%3A&quot;{{ siteName|url_encode }}&quot;&sorter=post_pub_date_sorter%20desc">{{ siteName }}</a> ({{ freq }} posts)</li>
-					{% endfor %}
-				</ol>
-			</div>
-		</div>
-	{% endif %}
+		{% endif %}
+	</div>
 </div>
 {% endblock %}
 

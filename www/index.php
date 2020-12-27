@@ -64,7 +64,7 @@ if (empty($query)) {
 }
 
 $sorter = $_GET['sorter'] ?? 'post_pub_date_sorter desc';
-$rows = 20;
+$rows = 50;
 $start = $_GET['start'] ?? 0;
 
 $searchOptions = [
@@ -84,7 +84,6 @@ if (trim($sorter) !== '') {
 }
 
 $response = $client->request('GET', '/solr/rss/select', $searchOptions);
-
 $responseCode = $response->getStatusCode();
 
 $numResults = 0;
@@ -137,40 +136,54 @@ if ($responseCode === 200) {
 	}
 }
 
-$processedStats = [];
-$isHomepage = $_SERVER['REQUEST_URI'] === '/';
-
-if ($isHomepage) {
-	$statsSolrParams = [
-		'q' => 'post_pub_date_range_utc:[NOW-30DAYS TO NOW]',
-		'start' => 0,
-		'rows' => 0,
-		'sort' => 'post_pub_date_sorter desc',
-		'facet' => 'on',
-		'facet.mincount' => 1,
-		'f.site_name.facet.limit' => 20,
-		'f.post_media.facet.limit' => 20,
-//		'facet.range' => 'post_pub_date_range_utc',
-//		'f.post_pub_date_range_utc.facet.range.start' => 'NOW/DAY-20DAYS',
-//		'f.post_pub_date_range_utc.facet.range.end' => 'NOW',
-//		'f.post_pub_date_range_utc.facet.range.gap' => '+1DAY',
-	];
-
-	$statsSolrParams = http_build_query($statsSolrParams);
-	$statsSolrParams .= '&facet.field=post_media&facet.field=site_name';
-	$statsResponse = $client->request('GET', '/solr/rss/select', ['query' => $statsSolrParams]);
-
-	if ($statsResponse->getStatusCode() === 200) {
-		$statsJson = (string)$statsResponse->getBody();
-		$statsDecoded = json_decode($statsJson, true);
-		$facetFields = $statsDecoded["facet_counts"]["facet_fields"];
-
-		foreach ($facetFields as $fieldName => $facetValues) {
-			foreach ($facetValues as $key => $facetValue) {
-				if ($key % 2 == 0) {
-					$processedStats[$fieldName][$facetValue] = $facetValues[$key+1];
-				}
+$statsQuery = '{
+	"query": "*:*",
+	"fields": "id,post_title,site_name",
+	"filter": "post_pub_date_range_utc:[NOW-7DAY TO NOW]",
+	"facet": {
+		"sites": {
+			"type": "terms",
+			"field": "site_name",
+			"sort": "total_views desc",
+			"limit": 10,
+			"facet": {
+				"total_views": "sum(view_count)"
 			}
+		},
+		"trending_media": {
+			"type": "terms",
+			"field": "post_media",
+			"limit": 10
+		}
+	},
+	"limit": 10,
+	"sort": "view_count DESC"
+}';
+
+$processedStats = [];
+
+$statsResponse = $client->post('/solr/rss/query', [
+	'headers' => [
+		'Content-Type' => 'application/json'
+	],
+	'body' => $statsQuery
+]);
+
+if ($statsResponse->getStatusCode() === 200) {
+	$statsJson = (string)$statsResponse->getBody();
+	$statsDecoded = json_decode($statsJson, true);
+
+	if ($statsDecoded['response']['numFound'] > 0) {
+		foreach ($statsDecoded['response']['docs'] as $doc) {
+			$processedStats['trending_posts'][$doc['post_title']] = ['id' => $doc['id'], 'site_name' => $doc['site_name']];
+		}
+
+		foreach ($statsDecoded['facets']['trending_media']['buckets'] as $media) {
+			$processedStats['trending_media'][$media['val']] = $media['count'];
+		}
+
+		foreach ($statsDecoded['facets']['sites']['buckets'] as $site) {
+			$processedStats['trending_bloggers'][$site['val']] = $site['total_views'];
 		}
 	}
 }
@@ -188,5 +201,4 @@ echo $twig->render('index.twig', [
 	'pageNumber' => ($start + $rows) / $rows,
 	'ttlPages' => ceil($numResults / $rows),
 	'stats' => $processedStats,
-	'isHomepage' => $isHomepage,
 ]);

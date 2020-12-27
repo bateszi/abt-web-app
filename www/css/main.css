@@ -134,7 +134,7 @@ a:hover {
 .searchResultsControls {
 	display: flex;
 	align-items: center;
-	margin: 0 0 5px;
+	margin: 0 0 10px;
 	font-size: 12px;
 	color: #A4A5A5;
 }
@@ -156,37 +156,59 @@ a:hover {
 	display: none;
 }
 
-.homepage.showMorePostsFormContainer {
-	margin-bottom: 60px;
-}
-
-.statsContainer {
-	background-color: #eee;
-	padding: 15px;
-}
-
 .statsCard {
-	background-color: #f7f7f7;
-	padding: 15px;
 	border: 1px solid #ddd;
-	margin-bottom: 15px;
+	border-radius: 5px;
+	margin-bottom: 10px;
 }
 
-.statsHeader {
-	margin: 0;
+.statsCardHeader {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
 }
 
 .statsCardTitle {
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 20px;
+	margin: 0 0 10px;
+	padding: 0;
+}
+
+.statsCardTitle:last-child {
+	margin-bottom: 0;
+}
+
+.statsCardSubtitle {
 	margin: 0;
+	padding: 0;
+}
+
+.statsCardSubtitle, .statsCardContent {
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.statsCardContent {
+	padding: 10px;
 }
 
 .statsCardList {
-	padding-inline-start: 30px;
+	margin: 0;
+	padding: 0;
+	padding-inline-start: 20px;
 }
 
-.statsSubTitle, .statsCardSubtitle, .statsCardListItem {
-	font-size: 14px;
+.postsContainerTitle {
+	margin: 0 0 20px 0;
+	font-weight: normal;
+	font-size: 16px;
 	line-height: 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+.showMorePostsFormContainer {
+	margin-bottom: 60px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -268,5 +290,28 @@ a:hover {
 	.searchFormContainer {
 		padding: 0;
 		flex-grow: 1;
+	}
+}
+
+@media only screen and (min-width: 1024px) {
+	#pageHeader {
+		width: 1024px;
+	}
+
+	#content {
+		width: 1024px;
+	}
+
+	.row {
+		display: flex;
+	}
+
+	.colMain {
+		flex: 70%;
+		padding-right: 20px;
+	}
+
+	.colSide {
+		flex: 30%;
 	}
 }
