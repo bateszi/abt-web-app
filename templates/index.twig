@@ -52,9 +52,6 @@
 							<span class="siteName">
 								<a href="/index.php?query=site_name%3A%22{{ result.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ result.site_name }}</a>
 							</span>
-							<span class="siteType">
-								/ <a href="/index.php?query=site_type%3A%22{{ result.site_type|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteType(this); return false;">{{ result.site_type }}</a>
-							</span>
 							<span class="postDate">
 								/ {{ result.post_pub_date_sorter }}
 							</span>
