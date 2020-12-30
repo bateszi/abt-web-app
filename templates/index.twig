@@ -41,6 +41,9 @@
 							<div class="featuredImageContainer">
 								<img class="featuredImage" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Featured image for {{ result.post_title }}"><img class="featuredImageBlur" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Background image for {{ result.post_title }}">
 							</div>
+						{% else %}
+							<div class="featuredImageContainer noImage">
+							</div>
 						{% endif %}
 						<div class="postTextContainer">
 							{% if result.post_title|length > 0 %}

@@ -326,6 +326,11 @@ a:hover {
 	.postTextContainer {
 		padding: 10px;
 	}
+
+	.featuredImageContainer.noImage {
+		background: rgb(75,17,168);
+		background: linear-gradient(90deg, rgba(75,17,168,0.592874649859944) 0%, rgba(221,221,221,1) 100%);
+	}
 }
 
 @media only screen and (min-width: 1024px) {
