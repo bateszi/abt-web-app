@@ -34,39 +34,48 @@
 				<h3 class="postsContainerTitle">Your search results</h3>
 			{% endif %}
 
-			{% for result in results %}
-				<div class="post {% if result.video %}video{% endif %} noImage">
-					<div class="postTextContainer">
-						<h3 class="postTitle">
-							<a href="/out.php?id={{ result.id }}" class="postLink">{{ result.post_title }}</a>
-						</h3>
-						<p class="postText">
-							<span class="postDescription">{{ result.post_description }}</span>
-						</p>
-						<p class="postMeta">
-							{% if result.site_host %}
-								<span class="favicon">
-									<img height="16" width="16" src="https://www.google.com/s2/favicons?domain={{ result.site_host }}">
-								</span>
+			<div class="postsContainer">
+				{% for result in results %}
+					<div class="post {% if result.video %}video{% endif %} noImage">
+						{% if result.post_image|length > 0 %}
+							<div class="featuredImageContainer">
+								<img class="featuredImage" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Featured image for {{ result.post_title }}"><img class="featuredImageBlur" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Background image for {{ result.post_title }}">
+							</div>
+						{% endif %}
+						<div class="postTextContainer">
+							{% if result.post_title|length > 0 %}
+								<h3 class="postTitle">
+									<a href="/out.php?id={{ result.id }}" class="postLink">{{ result.post_title }}</a>
+								</h3>
 							{% endif %}
-							<span class="siteName">
-								<a href="/index.php?query=site_name%3A%22{{ result.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ result.site_name }}</a>
-							</span>
-							<span class="postDate">
-								/ {{ result.post_pub_date_sorter }}
-							</span>
-							{% if result.post_media|length > 0 %}
-								<span class="postTags">
-									/ <i class="fas fa-tags" title="Auto-tagged"></i>
-									{% for mediaTitle in result.post_media %}
-										<a href="/index.php?query=%22{{ mediaTitle|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchByMedia(this); return false;">{{ mediaTitle }}</a>{% if loop.last %}{% else %} / {% endif %}
-									{% endfor %}
+							<p class="postText">
+								<span class="postDescription">{{ result.post_description }}</span>
+							</p>
+							<p class="postMeta">
+								{% if result.site_host %}
+									<span class="favicon">
+										<img height="16" width="16" src="https://www.google.com/s2/favicons?domain={{ result.site_host }}">
+									</span>
+								{% endif %}
+								<span class="siteName">
+									<a href="/index.php?query=site_name%3A%22{{ result.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ result.site_name }}</a>
 								</span>
-							{% endif %}
-						</p>
+								<span class="postDate">
+									/ {{ result.post_pub_date_sorter }}
+								</span>
+								{% if result.post_media|length > 0 %}
+									<span class="postTags">
+										/ <i class="fas fa-tags" title="Auto-tagged"></i>
+										{% for mediaTitle in result.post_media %}
+											<a href="/index.php?query=%22{{ mediaTitle|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchByMedia(this); return false;">{{ mediaTitle }}</a>{% if loop.last %}{% else %} / {% endif %}
+										{% endfor %}
+									</span>
+								{% endif %}
+							</p>
+						</div>
 					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
+			</div>
 
 			{% if hasMore %}
 				<div class="showMorePostsFormContainer">

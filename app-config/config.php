@@ -7,4 +7,5 @@ return [
 		'server' => 'db',
 		'dbName' => 'rss_aggregator',
 	],
+	'cdn' => 'https://cdn.aniblogtracker.com'
 ];

@@ -118,6 +118,10 @@ if ($responseCode === 200) {
 					$siteHost = '';
 				}
 
+				if (count($postMedia) > 5) {
+					$postMedia = array_slice($postMedia, 0, 5);
+				}
+
 				$results[] = [
 					'id' => $postId,
 					'post_image' => $postImage,
@@ -201,4 +205,5 @@ echo $twig->render('index.twig', [
 	'pageNumber' => ($start + $rows) / $rows,
 	'ttlPages' => ceil($numResults / $rows),
 	'stats' => $processedStats,
+	'cdnBaseUrl' => $config['cdn'],
 ]);

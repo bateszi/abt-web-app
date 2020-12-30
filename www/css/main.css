@@ -45,18 +45,6 @@ a:hover {
 	word-wrap: break-word;
 }
 
-.postImage {
-	display: none;
-}
-
-.post.hasImage .postImage {
-	display: block;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center center;
-	height: 173px;
-}
-
 .postTextContainer {
 	padding: 15px;
 }
@@ -211,32 +199,48 @@ a:hover {
 	margin-bottom: 60px;
 }
 
+.featuredImageContainer {
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid #ddd;
+}
+
+.post {
+	overflow: hidden;
+	border-radius: 5px;
+}
+
+.featuredImage {
+	width: 100%;
+	z-index: 1;
+	position: relative;
+	vertical-align: bottom;
+}
+
+.featuredImageBlur {
+	position: absolute;
+	z-index: 0;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 512px;
+	filter: blur(40px);
+	opacity: 1;
+}
+
 @media only screen and (min-width: 768px) {
 	.searchResultsControls {
 		margin-bottom: 20px;
 	}
 
 	.post {
-		display: flex;
-		align-items: flex-start;
 		padding: 0;
 		margin-bottom: 60px;
 		border: none;
 	}
 
-	.post.hasImage .postImage {
-		width: 250px;
-		height: 140px;
-	}
-
-	.postImageContainer {
-		order: 2;
-	}
-
 	.postTextContainer {
 		padding: 0 10px 0 0;
-		order: 1;
-		flex-grow: 1;
 	}
 
 	#pageHeaderContainer {
@@ -291,6 +295,37 @@ a:hover {
 		padding: 0;
 		flex-grow: 1;
 	}
+
+	.featuredImageContainer {
+		height: 171px;
+		background-color: #ddd;
+	}
+
+	.featuredImage {
+		display: block;
+		max-width: 304px;
+		max-height:171px;
+		width: auto;
+		height: auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.postsContainer {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
+
+	.post {
+		width: 304px;
+		border: 1px solid #ddd;
+		margin-bottom: 30px;
+	}
+
+	.postTextContainer {
+		padding: 10px;
+	}
 }
 
 @media only screen and (min-width: 1024px) {
@@ -313,5 +348,15 @@ a:hover {
 
 	.colSide {
 		flex: 30%;
+	}
+}
+
+@media only screen and (min-width: 1440px) {
+	#pageHeader {
+		width: 1440px;
+	}
+
+	#content {
+		width: 1440px;
 	}
 }
