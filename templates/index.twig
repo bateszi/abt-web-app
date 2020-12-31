@@ -38,12 +38,19 @@
 				{% for result in results %}
 					<div class="post {% if result.video %}video{% endif %} noImage">
 						{% if result.post_image|length > 0 %}
-							<div class="featuredImageContainer">
-								<img class="featuredImage" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Featured image for {{ result.post_title }}"><img class="featuredImageBlur" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Background image for {{ result.post_title }}">
-							</div>
+							<a href="/out.php?id={{ result.id }}" class="postLink">
+								<div class="featuredImageContainer">
+									<img class="featuredImage" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Featured image for {{ result.post_title }}"><img class="featuredImageBlur" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Background image for {{ result.post_title }}">
+								</div>
+							</a>
 						{% else %}
-							<div class="featuredImageContainer noImage">
-							</div>
+							<a href="/out.php?id={{ result.id }}" class="postLink">
+								<div class="featuredImageContainer noImage">
+									<div class="noImageIconContainer">
+										<i class="far fa-file-alt noImageIcon"></i>
+									</div>
+								</div>
+							</a>
 						{% endif %}
 						<div class="postTextContainer">
 							{% if result.post_title|length > 0 %}
