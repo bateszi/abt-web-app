@@ -322,8 +322,11 @@ a:hover {
 		max-height:171px;
 		width: auto;
 		height: auto;
-		margin-left: auto;
-		margin-right: auto;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
 	}
 
 	.postsContainer {
