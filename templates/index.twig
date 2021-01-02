@@ -40,7 +40,7 @@
 						{% if result.post_image|length > 0 %}
 							<a href="/out.php?id={{ result.id }}" class="postLink">
 								<div class="featuredImageContainer">
-									<img class="featuredImage" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Featured image for {{ result.post_title }}"><img class="featuredImageBlur" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Background image for {{ result.post_title }}">
+									<img loading="lazy" class="featuredImage" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Featured image for {{ result.post_title }}"><img loading="lazy" class="featuredImageBlur" src="{{ cdnBaseUrl }}{{ result.post_image }}" alt="Background image for {{ result.post_title }}">
 								</div>
 							</a>
 						{% else %}
