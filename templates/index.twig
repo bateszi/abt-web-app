@@ -93,6 +93,10 @@
 						<input type="hidden" name="query"  value="{{ query }}" />
 						<input type="hidden" name="start"  value="{{ nextOffset }}" />
 						<input type="hidden" name="sorter"  value="{{ sorter }}" />
+						{% if customFrom != "" and customTo != "" %}
+							<input type="hidden" name="customFrom"  value="{{ customFrom }}" />
+							<input type="hidden" name="customTo"  value="{{ customTo }}" />
+						{% endif %}
 						<button class="searchButton pagination button" type="submit" name="submit">
 							Next page
 						</button>
