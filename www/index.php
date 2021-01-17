@@ -63,6 +63,28 @@ if (empty($query)) {
 	$query = '*';
 }
 
+$fq = '';
+
+$customFrom = $_GET['customFrom'] ?? '';
+$customTo = $_GET['customTo'] ?? '';
+
+if (!empty($customFrom) && !empty($customTo)) {
+	$customFromTimestamp = @strtotime($customFrom);
+	$customToTimestamp = @strtotime($customTo);
+
+	if ($customFromTimestamp !== false && $customToTimestamp !== false) {
+		$dateRangeFilter = sprintf(
+			"post_pub_date_range_utc:[%s TO %s]",
+			date('Y-m-d', $customFromTimestamp),
+			date('Y-m-d', $customToTimestamp)
+		);
+		$fq .= $dateRangeFilter;
+	} else {
+		$customFrom = '';
+		$customTo = '';
+	}
+}
+
 $sorter = $_GET['sorter'] ?? 'post_pub_date_sorter desc';
 $rows = 50;
 $start = $_GET['start'] ?? 0;
@@ -72,6 +94,7 @@ $searchOptions = [
 		'q' => $query,
 		'rows' => $rows,
 		'start' => $start,
+		'fq' => $fq,
 	]
 ];
 
@@ -83,8 +106,13 @@ if (trim($sorter) !== '') {
 	$searchOptions['query']['sort'] = trim($sorter);
 }
 
-$response = $client->request('GET', '/solr/rss/select', $searchOptions);
-$responseCode = $response->getStatusCode();
+try {
+	$response = $client->request('GET', '/solr/rss/select', $searchOptions);
+	$responseCode = $response->getStatusCode();
+} catch (\GuzzleHttp\Exception\ServerException $e) {
+	$response = false;
+	$responseCode = 500;
+}
 
 $numResults = 0;
 $results = [];
@@ -206,4 +234,6 @@ echo $twig->render('index.twig', [
 	'ttlPages' => ceil($numResults / $rows),
 	'stats' => $processedStats,
 	'cdnBaseUrl' => $config['cdn'],
+	'customFrom' => $customFrom,
+	'customTo' => $customTo,
 ]);

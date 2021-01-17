@@ -102,8 +102,8 @@
 		</div>
 	</div>
 	<div class="sidebarContainer colSide">
-		{% if stats %}
-			<div class="statsContainer">
+		<div class="statsContainer">
+			{% if stats %}
 				<div class="statsCard">
 					<div class="statsCardHeader">
 						<h4 class="statsCardTitle"><i class="fas fa-film"></i> Trending anime</h4>
@@ -145,8 +145,32 @@
 						</ol>
 					</div>
 				</div>
+			{% endif %}
+
+			<div class="statsCard">
+				<div class="statsCardHeader">
+					<h4 class="statsCardTitle"><i class="far fa-calendar-alt"></i> Customised date range</h4>
+					<p class="statsCardSubtitle">Find posts published between these dates.</p>
+				</div>
+				<div class="statsCardContent">
+					<form method="get" class="customDateForm">
+						<input type="hidden" name="query" value="{{ query }}">
+						<input type="hidden" name="sorter" value="post_pub_date_sorter asc">
+						<p class="customDateRow">
+							<label for="customFrom" class="customDateLabel">From</label>
+							<input type="date" id="customFrom" name="customFrom" class="customDate" value="{{ customFrom }}">
+						</p>
+						<p class="customDateRow">
+							<label for="customTo" class="customDateLabel">To</label>
+							<input type="date" id="customTo" name="customTo" class="customDate" value="{{ customTo }}">
+						</p>
+						<p class="customDateRow">
+							<input type="submit" value="Search" class="customDateSubmit">
+						</p>
+					</form>
+				</div>
 			</div>
-		{% endif %}
+		</div>
 	</div>
 </div>
 {% endblock %}
