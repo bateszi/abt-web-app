@@ -65,7 +65,7 @@
 					<div class="statsCardContent">
 						<ol class="statsCardList">
 							{% for postTitle, trendingPost in stats.trending_posts %}
-								<li class="statsCardListItem"><a href="/out.php?id={{ trendingPost.id }}">{{ postTitle }}</a> by {{ trendingPost.site_name }}</li>
+								<li class="statsCardListItem"><a href="/post.php?id={{ trendingPost.id }}">{{ postTitle }}</a> by {{ trendingPost.site_name }}</li>
 							{% endfor %}
 						</ol>
 					</div>
