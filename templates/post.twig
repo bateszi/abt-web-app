@@ -1,0 +1,69 @@
+{% extends "base.twig" %}
+
+{% block title %}{{ post.post_title }} by {{ post.site_name }}{% endblock %}
+
+{% block bodyClass %}index{% endblock %}
+
+{% block pageHeader %}
+    {{ parent() }}
+
+    {{ include('partials/searchform.twig') }}
+
+{% endblock %}
+
+{% block content %}
+    <div class="contentContainer row">
+        <div class="mainContainer colMain mainPost">
+            <div class="mainPostContainer">
+                <div class="mainPostImageContainer {% if post.post_image|length > 0 %}hasImage{% endif %}">
+                    {% if post.post_image|length > 0 %}
+                        <a href="/out.php?id={{ post.id }}" class="postLink">
+                            <div class="mainPostImageWrapper">
+                                <img class="mainPostImage" src="{{ cdnBaseUrl }}{{ post.post_image }}" alt="Featured image for {{ post.post_title }}"><img class="featuredImageBlur" src="{{ cdnBaseUrl }}{{ post.post_image }}" alt="Background image for {{ post.post_title }}">
+                            </div>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="mainPostTextContainer">
+                    <div class="mainPostTitle">
+                        {% if post.post_title|length > 0 %}
+                            <h2 class="mainPostTitleText">
+                                <a href="/out.php?id={{ post.id }}" class="postLink">{{ post.post_title }}</a>
+                            </h2>
+                        {% endif %}
+                    </div>
+                    <div class="mainPostDescrWrapper">
+                        {% if post.post_description_full|length > 0 %}
+                            <p class="mainPostDescr">{{ post.post_description_full }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="mainPostMeta">
+                        <span class="siteName">
+                            By <a href="/index.php?query=site_name%3A%22{{ post.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ post.site_name }}</a>
+                        </span>
+                        <span class="postDate">
+                            / {{ post.post_pub_date_full }}
+                        </span>
+                        {% if post.post_media|length > 0 %}
+                            <span class="postTags">
+                                / <i class="fas fa-tags" title="Auto-tagged"></i>
+                                {% for mediaTitle in post.post_media %}
+                                    <a href="/index.php?query=%22{{ mediaTitle|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchByMedia(this); return false;">{{ mediaTitle }}</a>{% if loop.last %}{% else %} / {% endif %}
+                                {% endfor %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% if results|length > 0 %}
+                <div class="posts relatedPosts">
+                    <h3 class="relatedPostsHeaderText">More like this</h3>
+                    {{ include('partials/posts.twig') }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

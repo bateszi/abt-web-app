@@ -266,6 +266,56 @@ a:hover {
 	background-color: transparent;
 }
 
+.mainPostContainer {
+	border: 1px solid #ddd;
+	overflow: hidden;
+	border-radius: 5px;
+	margin-bottom: 32px;
+}
+
+.mainPostImage {
+	max-width: 100%;
+	vertical-align: bottom;
+	z-index: 1;
+	position: relative;
+}
+
+.mainPostImageWrapper {
+	position: relative;
+	text-align: center;
+}
+
+.mainPostTextContainer {
+	padding: 15px;
+}
+
+.mainPostTitleText {
+	margin: 0 0 15px;
+	font-size: 24px;
+	line-height: 28px;
+}
+
+.mainPostDescr {
+	margin: 0 0 15px;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+.mainPostMeta {
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.relatedPostsHeaderText {
+	margin: 0 0 15px;
+	line-height: 24px;
+	font-size: 20px;
+}
+
+.mainPostImageContainer.hasImage {
+	overflow: hidden;
+}
+
 @media only screen and (min-width: 768px) {
 	.searchResultsControls {
 		margin-bottom: 20px;
@@ -394,6 +444,27 @@ a:hover {
 
 	.colSide {
 		flex: 30%;
+	}
+
+	.mainPostContainer {
+		display: flex;
+		align-items: center;
+	}
+
+	.mainPostImageContainer.hasImage, .mainPostTextContainer {
+		width: 50%;
+	}
+
+	.mainPostTextContainer {
+		flex-grow: 1;
+	}
+
+	.mainPost.colMain {
+		padding-right: 0;
+	}
+
+	.mainPostImage {
+		max-height: 500px;
 	}
 }
 
