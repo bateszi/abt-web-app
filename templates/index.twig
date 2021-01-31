@@ -28,11 +28,6 @@
 			</p>
 		</div>
 		<div class="posts">
-			{% if query == '' %}
-				<h3 class="postsContainerTitle">Newest anime blog posts</h3>
-			{% else %}
-				<h3 class="postsContainerTitle">Your search results</h3>
-			{% endif %}
 
 			<div class="postsContainer">
 				{% for result in results %}
