@@ -22,9 +22,6 @@ a:hover {
 
 #pageHeader {
 	padding: 20px 5px 0 5px;
-	margin-bottom: 20px;
-	border-bottom: 1px solid #ddd;
-	border-radius: 5px 5px 0 0;
 }
 
 .pageHeaderText {
@@ -316,7 +313,73 @@ a:hover {
 	overflow: hidden;
 }
 
+.text #content h2, h2.pageTitle {
+	margin: 24px 0 8px;
+	font-size: 28px;
+	line-height: 32px;
+}
+
+.text #content p, p.pageText {
+	margin: 4px 0 12px;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.mainPostContainer .subscribeBtn, .postsContainer .subscribeBtn {
+	cursor: pointer;
+	background-color: #fff;
+	border: none;
+	padding: 0;
+	margin: 0;
+	color: #1967D2;
+}
+
+.featuredImageContainer.noImage {
+	background: rgb(75,17,168);
+	background: linear-gradient(90deg, rgba(75,17,168,0.592874649859944) 0%, rgba(221,221,221,1) 100%);
+	min-height: 171px;
+}
+
+#nav {
+	background-color: #ddd;
+	margin-bottom: 20px;
+}
+
+#navList {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	display: flex;
+	justify-content: center;
+}
+
+.navListItem {
+	padding: 5px 10px 5px 5px;
+	margin: 5px 5px 5px 0;
+	font-size: 14px;
+	border-right: 2px solid #eee;
+}
+
+.navListItem:last-child {
+	margin-right: 0;
+	border: none;
+}
+
 @media only screen and (min-width: 768px) {
+	#nav {
+		margin: 0 0 20px 0;
+	}
+
+	#navList {
+		justify-content: flex-start;
+		width: 768px;
+		margin: 0 auto;
+	}
+
+	.navListItem:first-child {
+		margin-left: 15px;
+	}
+
 	.searchResultsControls {
 		margin-bottom: 20px;
 	}
@@ -329,11 +392,6 @@ a:hover {
 
 	.postTextContainer {
 		padding: 0 10px 0 0;
-	}
-
-	#pageHeaderContainer {
-		border-bottom: 1px solid #ddd;
-		margin-bottom: 20px;
 	}
 
 	#pageHeader {
@@ -417,11 +475,6 @@ a:hover {
 	.postTextContainer {
 		padding: 10px;
 	}
-
-	.featuredImageContainer.noImage {
-		background: rgb(75,17,168);
-		background: linear-gradient(90deg, rgba(75,17,168,0.592874649859944) 0%, rgba(221,221,221,1) 100%);
-	}
 }
 
 @media only screen and (min-width: 1024px) {
@@ -431,6 +484,14 @@ a:hover {
 
 	#content {
 		width: 1024px;
+	}
+
+	#navList {
+		width: 1024px;
+	}
+
+	.text #content {
+		width: 768px;
 	}
 
 	.row {
@@ -475,5 +536,13 @@ a:hover {
 
 	#content {
 		width: 1440px;
+	}
+
+	#navList {
+		width: 1440px;
+	}
+
+	.text #content {
+		width: 768px;
 	}
 }

@@ -1,0 +1,9 @@
+{% if isLoggedIn %}
+    {% if userSubs[ post.site_id ] is defined %}
+        <button class="subscribeBtn unsub" data-site-id="{{ post.site_id }}" data-type="d" title="Unsubscribe from this blog"><i class="fas fa-minus"></i> Unsubscribe</button>
+    {% else %}
+        <button class="subscribeBtn sub" data-site-id="{{ post.site_id }}" data-type="a" title="Subscribe to this blog"><i class="fas fa-plus"></i> Subscribe</button>
+    {% endif %}
+{% else %}
+    <a href="/login.php"><i class="fas fa-plus"></i> Subscribe</a>
+{% endif %}

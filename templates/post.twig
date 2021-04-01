@@ -40,6 +40,7 @@
                     <div class="mainPostMeta">
                         <span class="siteName">
                             By <a href="/index.php?query=site_name%3A%22{{ post.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ post.site_name }}</a>
+                            / {{ include('partials/sub-cta.twig') }}
                         </span>
                         <span class="postDate">
                             / {{ post.post_pub_date_full }}

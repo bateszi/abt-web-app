@@ -6,7 +6,7 @@
 	<meta name="referrer" content="origin">
 	<script src="https://kit.fontawesome.com/0c6d9a9829.js" crossorigin="anonymous"></script>
 	<link href="/css/normalize.css" type="text/css" rel="stylesheet">
-	<link href="/css/main.css?v=10" type="text/css" rel="stylesheet">
+	<link href="/css/main.css?v=11" type="text/css" rel="stylesheet">
 	{% block head %}
 		<title>{% block title %}{% endblock %} / Anime Blog Tracker | ABT</title>
 	{% endblock %}
@@ -28,12 +28,25 @@
 					<h1 class="pageHeaderText"><a href="/"><i class="fas fa-rss"></i> Anime Blog Tracker</a></h1>
 				{% endblock %}
 			</div>
+			{% block nav %}
+				<div id="nav">
+					<ul id="navList">
+						<li class="navListItem"><a href="/index.php">Home</a></li>
+						<li class="navListItem"><a href="/mysubscriptions.php">Subscriptions</a></li>
+						{% if isLoggedIn %}
+							<li class="navListItem"><a href="/logout.php">Sign out</a></li>
+						{% else %}
+							<li class="navListItem"><a href="/login.php">Sign in</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			{% endblock %}
 		</div>
 		<div id="content">
 			{% block content %}{% endblock %}
 		</div>
 	</div>
 
-	<script src="/js/main.js?v=3"></script>
+	<script src="/js/main.js?v=4"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 require_once '../vendor/autoload.php';
 require_once '_lib.php';
 
-$config = require_once '../app-config/config.php';
+$config = getConfig();
 
 $twig = initTwig();
 
@@ -35,6 +35,7 @@ try {
 $tplVars = [
 	'post' => null,
 	'results' => null,
+	'userSubs' => [],
 
 	// required by partials
 	'query' => '',
@@ -52,6 +53,11 @@ if ($responseCode === 200) {
 		if ($numResults > 0) {
 			$solrDoc = $solrResponse["response"]["docs"][0];
 			$tplVars['post'] = preparePost($solrDoc);
+
+			if (isLoggedIn()) {
+				$db = getDbConnection();
+				$tplVars['userSubs'] = getUserSubscriptions($db, $_SESSION['user_id']);
+			}
 
 			$relatedPostsInfo = $solrResponse["moreLikeThis"][$postId];
 

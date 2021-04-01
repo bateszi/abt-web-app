@@ -2,7 +2,7 @@
 require_once '../vendor/autoload.php';
 require_once '_lib.php';
 
-$config = require_once '../app-config/config.php';
+$config = getConfig();
 
 $twig = initTwig();
 
@@ -145,6 +145,13 @@ if ($statsResponse->getStatusCode() === 200) {
 $nextOffset = $start + $rows;
 $query = ($query === '*') ? '' : $query;
 
+$userSubs = [];
+
+if (isLoggedIn()) {
+	$db = getDbConnection();
+	$userSubs = getUserSubscriptions($db, $_SESSION['user_id']);
+}
+
 echo $twig->render('index.twig', [
 	'numResults' => $numResults,
 	'results' => $results,
@@ -158,4 +165,5 @@ echo $twig->render('index.twig', [
 	'cdnBaseUrl' => $config['cdn'],
 	'customFrom' => $customFrom,
 	'customTo' => $customTo,
+	'userSubs' => $userSubs,
 ]);

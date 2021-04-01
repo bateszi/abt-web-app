@@ -83,13 +83,7 @@ if ($db !== false) {
 
 	$sites = getSites($db, $dateFilter);
 
-	$loader = new \Twig\Loader\FilesystemLoader('../templates');
-
-	$twig = new \Twig\Environment($loader, [
-		'cache' => '../templates_cache',
-		'debug' => true,
-		'strict_variables' => true,
-	]);
+	$twig = initTwig();
 
 	echo $twig->render('queue.twig', [
 		'sites' => $sites

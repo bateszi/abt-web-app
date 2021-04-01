@@ -2,19 +2,6 @@
 require_once '../vendor/autoload.php';
 require_once '_lib.php';
 
-function getPostById(PDO $db, int $id): array {
-	$query = "SELECT pk_post_id, link FROM posts WHERE pk_post_id = ?";
-	$prepare = $db->prepare($query);
-	$prepare->execute([$id]);
-	$foundPost = $prepare->rowCount();
-
-	if ($foundPost > 0) {
-		return $prepare->fetch(PDO::FETCH_ASSOC);
-	}
-
-	return [];
-}
-
 function updatedPostViewCount(PDO $db, int $postId) {
 	$query = "UPDATE posts SET view_count = view_count + 1 WHERE pk_post_id = ?";
 	$prepare = $db->prepare($query);
@@ -42,7 +29,7 @@ function updateSolrDoc(string $solrUrl, int $postId) {
 	$client->post('/solr/rss/update', $requestOptions);
 }
 
-$config = require_once '../app-config/config.php';
+$config = getConfig();
 
 $db = getDbConnection();
 

@@ -1,0 +1,52 @@
+{% extends "base.twig" %}
+
+{% block title %}My subscriptions{% endblock %}
+
+{% block bodyClass %}index{% endblock %}
+
+{% block pageHeader %}
+    {{ parent() }}
+
+    {{ include('partials/searchform.twig') }}
+
+{% endblock %}
+
+{% block content %}
+    <div class="contentContainer row">
+        <div class="mainContainer colMain">
+            <h2 class="pageTitle">My subscriptions</h2>
+            {% if userSubs|length > 0 %}
+                <div class="searchResultsControls">
+                    <p class="searchResultsInfo">
+                        {{ numResults }} results{% if numResults > 0 and ttlPages > 1 %}, page {{ pageNumber }} of {{ ttlPages }}{% endif %}.
+                        Subscribed to {{ userSubs|length }} blogs.
+                    </p>
+                </div>
+                <div class="posts">
+                    {{ include('partials/posts.twig') }}
+
+                    {% if hasMore %}
+                        <div class="showMorePostsFormContainer">
+                            <form class="showMorePostsForm" method="get" action="">
+                                <input type="hidden" name="query"  value="{{ query }}" />
+                                <input type="hidden" name="start"  value="{{ nextOffset }}" />
+                                <input type="hidden" name="sorter"  value="{{ sorter }}" />
+                                <button class="searchButton pagination button" type="submit" name="submit">
+                                    Next page
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p class="pageText">
+                    You aren't subscribed to any blogs yet!
+                    Why not <a href="/index.php">head over to the homepage</a> and subscribe to something?
+                </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

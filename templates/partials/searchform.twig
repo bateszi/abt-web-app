@@ -1,7 +1,7 @@
 <div class="searchFormContainer">
     <form class="searchForm" method="get" action="/index.php">
         <div class="inlineFormUi">
-            <input class="searchFormInput textField" type="text" name="query" id="query" value="{{ query }}" placeholder="Search the archive for..." />
+            <input class="searchFormInput textField" type="text" name="query" id="query" value="{% if query is defined %}{{ query }}{% endif %}" placeholder="Search the archive for..." />
             <button class="searchFormSubmit searchButton button" type="submit" name="submit"><i class="fas fa-search"></i></button>
         </div>
         <input type="hidden" name="start" value="0" />

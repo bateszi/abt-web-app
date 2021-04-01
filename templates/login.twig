@@ -1,0 +1,41 @@
+{% extends "base.twig" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block bodyClass %}text{% endblock %}
+
+{% block pageHeader %}
+    {{ parent() }}
+
+    {{ include('partials/searchform.twig') }}
+{% endblock %}
+
+{% block content %}
+    <h2>Log in to Anime Blog Tracker</h2>
+    {% if isLoggedIn == false %}
+        <p>
+            If you register with Anime Blog Tracker, you will be able to subscribe to your favourite blogs,
+            allowing you to curate a personalised feed of the anime content that you enjoy the most.
+        </p>
+        <p>
+            For the time being, we only support signing in with Google. When you click the button below,
+            you will be asked to share your name and email address with us. This is just so that we can
+            create your account.
+        </p>
+        <p>
+            <a href="{{ authUrl }}">
+                <img src="/images/btn_google_signin_dark_normal_web.png" alt="Sign in with Google">
+            </a>
+        </p>
+    {% else %}
+        <p>
+            You are logged in as {{ email }}.
+        </p>
+        <p>
+            Time to start reading!
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
