@@ -1,15 +1,172 @@
 body {
+	--light-color: #fff;
+	--nav-border-color: #eee;
+	--main-border-color: #ddd;
+	--header-bg-color: #ddd;
+	--deemphasized-text-color: #A4A5A5;
+	--main-font-color: #3C4043;
+	--search-button-bg: #3b78e7;
+	--active-link-color: #1967D2;
+	--visited-link-color: #4B11A8;
+	--input-text-colour: #000;
+	--input-bg-colour: #fff;
+	--element-bg-color: var(--light-color);
+	--no-image-tile-gradient1: rgba(75, 17, 168, 0.592874649859944);
+	--no-image-tile-gradient2: rgba(221, 221, 221, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		--light-color: #0d1117;
+		--nav-border-color: #30363d;
+		--main-border-color: #30363d;
+		--header-bg-color: #161b22;
+		--deemphasized-text-color: #A4A5A5;
+		--main-font-color: #c9d1d9;
+		--search-button-bg: #3b78e7;
+		--active-link-color: #58a6ff;
+		--visited-link-color: #58a6ff;
+		--input-text-colour: #c9d1d9;
+		--input-bg-colour: #0d1117;
+		--element-bg-color: #161b22;
+		--no-image-tile-gradient1: var(--header-bg-color);
+		--no-image-tile-gradient2: var(--header-bg-color);
+	}
+}
+
+body {
 	font-family: Arial, Helvetica, sans-serif;
-	color: #3C4043;
+}
+
+body {
+	color: var(--main-font-color);
+	background-color: var(--light-color);
 }
 
 a:link, a:active {
-	color: #1967D2;
-	text-decoration: none;
+	color: var(--active-link-color);
 }
 
 a:visited {
-	color: #4B11A8;
+	color: var(--visited-link-color);
+}
+
+.post {
+	border: 1px solid var(--main-border-color);
+	background-color: var(--element-bg-color);
+}
+
+.postDate, .postTags {
+	color: var(--deemphasized-text-color);
+}
+
+.postMedia {
+	color: var(--deemphasized-text-color);
+}
+
+.textField {
+	border: 1px solid var(--main-border-color);
+}
+
+.button {
+	border: 1px solid var(--main-border-color);
+	background-color: var(--light-color);
+}
+
+.button.searchFormSubmit {
+	background-color: var(--search-button-bg);
+	color: var(--light-color);
+}
+
+.searchResultsControls {
+	color: var(--deemphasized-text-color);
+}
+
+.statsCard {
+	border: 1px solid var(--main-border-color);
+}
+
+.statsCardHeader {
+	border-bottom: 1px solid var(--main-border-color);
+}
+
+.postsContainerTitle {
+	border-bottom: 1px solid var(--main-border-color);
+}
+
+.featuredImageContainer {
+	border-bottom: 1px solid var(--main-border-color);
+}
+
+.noImageIcon {
+	color: var(--light-color);
+}
+
+.customDate {
+	border: 1px solid var(--main-border-color);
+}
+
+.customDateSubmit {
+	border: 1px solid var(--search-button-bg);
+}
+
+.mainPostContainer {
+	border: 1px solid var(--main-border-color)
+}
+
+.mainPostContainer .subscribeBtn, .postsContainer .subscribeBtn {
+	background-color: var(--light-color);
+	color: var(--active-link-color);
+}
+
+.searchFormInput.textField, .customDate {
+	color: var(--input-text-colour);
+	background-color: var(--input-bg-colour);
+}
+
+.featuredImageContainer.noImage {
+	background: var(--no-image-tile-gradient1);
+	background: linear-gradient(90deg, var(--no-image-tile-gradient1) 0%, var(--no-image-tile-gradient2) 100%);
+}
+
+.mainPostContainer {
+	background-color: var(--element-bg-color);
+}
+
+#nav {
+	background-color: var(--header-bg-color);
+}
+
+.navListItem {
+	border-right: 2px solid var(--nav-border-color);
+}
+
+.customDateSubmit {
+	color: var(--main-font-color);
+}
+
+.searchButton.pagination.button {
+	color: var(--main-font-color);
+}
+
+@media only screen and (min-width: 768px) {
+	.queuedSites {
+		border: 1px solid var(--nav-border-color);
+	}
+
+	.queuedSites tr:hover {
+		background-color: var(--nav-border-color);
+	}
+
+	.featuredImageContainer {
+		background-color: var(--main-border-color);
+	}
+}
+
+
+
+a:link, a:active {
+	text-decoration: none;
 }
 
 a:hover {
@@ -36,7 +193,6 @@ a:hover {
 }
 
 .post {
-	border: 1px solid #ddd;
 	margin-bottom: 5px;
 	overflow-wrap: break-word;
 	word-wrap: break-word;
@@ -65,16 +221,11 @@ a:hover {
 	line-height: 20px;
 }
 
-.postDate, .postTags {
-	color: #A4A5A5;
-}
-
 .favicon img {
 	vertical-align: middle;
 }
 
 .postMedia {
-	color: #A4A5A5;
 	margin: 10px 0 0;
 	font-size: 12px;
 }
@@ -84,7 +235,6 @@ a:hover {
 }
 
 .textField {
-	border: 1px solid #ddd;
 	border-bottom-left-radius: 5px;
 	border-top-left-radius: 5px;
 }
@@ -99,16 +249,12 @@ a:hover {
 }
 
 .button {
-	border: 1px solid #ddd;
-	background-color: #fff;
 	border-radius: 5px;
 }
 
 .button.searchFormSubmit {
 	border-radius: 0 5px 5px 0;
 	width: 46px;
-	background-color: #3b78e7;
-	color: #fff;
 	border: 0;
 }
 
@@ -121,7 +267,6 @@ a:hover {
 	align-items: center;
 	margin: 0 0 10px;
 	font-size: 12px;
-	color: #A4A5A5;
 }
 
 .searchSorterContainer {
@@ -142,14 +287,12 @@ a:hover {
 }
 
 .statsCard {
-	border: 1px solid #ddd;
 	border-radius: 5px;
 	margin-bottom: 10px;
 }
 
 .statsCardHeader {
 	padding: 10px;
-	border-bottom: 1px solid #ddd;
 }
 
 .statsCardTitle {
@@ -189,7 +332,6 @@ a:hover {
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 20px;
-	border-bottom: 1px solid #ddd;
 }
 
 .showMorePostsFormContainer {
@@ -199,7 +341,6 @@ a:hover {
 .featuredImageContainer {
 	position: relative;
 	overflow: hidden;
-	border-bottom: 1px solid #ddd;
 }
 
 .post {
@@ -236,7 +377,6 @@ a:hover {
 
 .noImageIcon {
 	display: block;
-	color: #fff;
 	font-size: 72px;
 }
 
@@ -251,20 +391,17 @@ a:hover {
 
 .customDate {
 	border-radius: 5px;
-	border: 1px solid #ddd;
 	padding: 5px;
 }
 
 .customDateSubmit {
 	border-radius: 5px;
-	border: 1px solid #3b78e7;
 	padding: 5px;
 	margin-left: 50px;
 	background-color: transparent;
 }
 
 .mainPostContainer {
-	border: 1px solid #ddd;
 	overflow: hidden;
 	border-radius: 5px;
 	margin-bottom: 32px;
@@ -327,21 +464,16 @@ a:hover {
 
 .mainPostContainer .subscribeBtn, .postsContainer .subscribeBtn {
 	cursor: pointer;
-	background-color: #fff;
 	border: none;
 	padding: 0;
 	margin: 0;
-	color: #1967D2;
 }
 
 .featuredImageContainer.noImage {
-	background: rgb(75,17,168);
-	background: linear-gradient(90deg, rgba(75,17,168,0.592874649859944) 0%, rgba(221,221,221,1) 100%);
 	min-height: 171px;
 }
 
 #nav {
-	background-color: #ddd;
 	margin-bottom: 20px;
 }
 
@@ -357,7 +489,6 @@ a:hover {
 	padding: 5px 10px 5px 5px;
 	margin: 5px 5px 5px 0;
 	font-size: 14px;
-	border-right: 2px solid #eee;
 }
 
 .navListItem:last-child {
@@ -387,7 +518,6 @@ a:hover {
 	.post {
 		padding: 0;
 		margin-bottom: 60px;
-		border: none;
 	}
 
 	.postTextContainer {
@@ -417,15 +547,10 @@ a:hover {
 
 	.queuedSites {
 		width: 100%;
-		border: 1px solid #eee;
 	}
 
 	.queuedSites th {
 		text-align: left;
-	}
-
-	.queuedSites tr:hover {
-		background-color: #eee;
 	}
 
 	.queueFeedUrl {
@@ -444,7 +569,6 @@ a:hover {
 
 	.featuredImageContainer {
 		height: 171px;
-		background-color: #ddd;
 	}
 
 	.featuredImage {
@@ -468,7 +592,6 @@ a:hover {
 
 	.post {
 		width: 304px;
-		border: 1px solid #ddd;
 		margin-bottom: 30px;
 	}
 
