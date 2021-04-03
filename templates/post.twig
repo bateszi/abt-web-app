@@ -37,23 +37,28 @@
                             <p class="mainPostDescr">{{ post.post_description_full }}</p>
                         {% endif %}
                     </div>
-                    <div class="mainPostMeta">
-                        <span class="siteName">
-                            By <a href="/index.php?query=site_name%3A%22{{ post.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ post.site_name }}</a>
-                            / {{ include('partials/sub-cta.twig') }}
+                    <p class="siteNameContainer">
+                        {% if post.site_host %}
+                            <span class="favicon">
+                            <img height="16" width="16" src="https://www.google.com/s2/favicons?domain={{ post.site_host }}">
                         </span>
-                        <span class="postDate">
-                            / {{ post.post_pub_date_full }}
-                        </span>
-                        {% if post.post_media|length > 0 %}
-                            <span class="postTags">
-                                / <i class="fas fa-tags" title="Auto-tagged"></i>
-                                {% for mediaTitle in post.post_media %}
-                                    <a href="/index.php?query=%22{{ mediaTitle|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchByMedia(this); return false;">{{ mediaTitle }}</a>{% if loop.last %}{% else %} / {% endif %}
-                                {% endfor %}
-                            </span>
                         {% endif %}
-                    </div>
+                        <span class="siteName">
+                        <a href="/index.php?query=site_name%3A%22{{ post.site_name|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ post.site_name }}</a>
+                    </span>
+                    </p>
+                    <p class="postDate">
+                        {{ post.post_pub_date_sorter }}
+                        &bull; {{ include('partials/sub-cta.twig') }}
+                    </p>
+                    {% if post.post_media|length > 0 %}
+                        <p class="postTags">
+                            <i class="fas fa-tags" title="Auto-tagged"></i>
+                            {% for mediaTitle in post.post_media %}
+                                <a href="/index.php?query=%22{{ mediaTitle|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchByMedia(this); return false;">{{ mediaTitle }}</a>{% if loop.last %}{% else %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
                 </div>
             </div>
             {% if results|length > 0 %}

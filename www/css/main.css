@@ -13,6 +13,7 @@ body {
 	--element-bg-color: var(--light-color);
 	--no-image-tile-gradient1: rgba(75, 17, 168, 0.592874649859944);
 	--no-image-tile-gradient2: rgba(221, 221, 221, 1);
+	--subdued-color: rgb(110, 118, 125);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,6 +32,7 @@ body {
 		--element-bg-color: #161b22;
 		--no-image-tile-gradient1: var(--header-bg-color);
 		--no-image-tile-gradient2: var(--header-bg-color);
+		--subdued-color: rgb(110, 118, 125);
 	}
 }
 
@@ -51,12 +53,18 @@ a:visited {
 	color: var(--visited-link-color);
 }
 
+.postDate a:active, .postDate a:link, .postDate a:visited, .postDate a:hover,
+.postTags a:active, .postTags a:link, .postTags a:visited, .postTags a:hover {
+	color: var(--subdued-color);
+	text-decoration: none;
+}
+
 .post {
 	border: 1px solid var(--main-border-color);
 	background-color: var(--element-bg-color);
 }
 
-.postDate, .postTags {
+.postDate, .postTags, .searchResultsInfo {
 	color: var(--deemphasized-text-color);
 }
 
@@ -115,8 +123,8 @@ a:visited {
 }
 
 .mainPostContainer .subscribeBtn, .postsContainer .subscribeBtn {
-	background-color: var(--light-color);
-	color: var(--active-link-color);
+	background-color: transparent;
+	color: var(--subdued-color);
 }
 
 .searchFormInput.textField, .customDate {
@@ -215,14 +223,10 @@ a:hover {
 	line-height: 20px;
 }
 
-.postMeta {
-	margin: 0;
-	font-size: 12px;
-	line-height: 20px;
-}
-
 .favicon img {
-	vertical-align: middle;
+	vertical-align: top;
+	margin-right: 5px;
+	border-radius: 10px;
 }
 
 .postMedia {
@@ -432,7 +436,7 @@ a:hover {
 .mainPostDescr {
 	margin: 0 0 15px;
 	font-size: 16px;
-	line-height: 20px;
+	line-height: 22px;
 }
 
 .mainPostMeta {
@@ -494,6 +498,33 @@ a:hover {
 .navListItem:last-child {
 	margin-right: 0;
 	border: none;
+}
+
+.siteNameContainer {
+	display: flex;
+	font-size: 14px;
+	align-items: center;
+	margin: 0 0 20px;
+}
+
+.postDate {
+	margin: 0;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 10px 0 0;
+	border-top: 1px solid var(--main-border-color);
+}
+
+.postTags {
+	margin: 10px 0 0;
+	padding: 10px 0 0;
+	font-size: 14px;
+	line-height: 20px;
+	border-top: 1px solid var(--main-border-color);
+}
+
+.postDate, .postTags {
+	color: var(--subdued-color);
 }
 
 @media only screen and (min-width: 768px) {

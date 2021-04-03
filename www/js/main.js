@@ -43,11 +43,11 @@ document.body.addEventListener('subscribeStatus', (event) => {
 
 	if (subType === 'a') {
 		updatedSubType = 'd';
-		btnText = '<i class="fas fa-minus"></i> Unsubscribe';
+		btnText = 'Unsubscribe';
 		stateCssClass = 'unsub';
 	} else {
 		updatedSubType = 'a';
-		btnText = '<i class="fas fa-plus"></i> Subscribe';
+		btnText = 'Subscribe';
 		stateCssClass = 'sub';
 	}
 
