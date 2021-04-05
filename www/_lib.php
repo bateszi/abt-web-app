@@ -53,8 +53,18 @@ function truncatePostText(string $originalPostText): string {
 }
 
 function preparePost(array $solrResult): array {
-	$m = new \Moment\Moment($solrResult['post_pub_date_sorter']);
-	$momentFromVo = $m->fromNow();
+	$postPubDateSorter = $solrResult['post_pub_date_sorter'];
+	$timestamp = strtotime($postPubDateSorter);
+
+	$relativeCutOff = strtotime("-1 month");
+
+	if ($timestamp > $relativeCutOff) {
+		$m = new \Moment\Moment($postPubDateSorter);
+		$momentFromVo = $m->fromNow();
+		$displayDate = $momentFromVo->getRelative();
+	} else {
+		$displayDate = date('M j, Y', $timestamp);
+	}
 
 	$postDescription = $solrResult['post_description'] ?? 'No post summary was provided.';
 	$postImage = $solrResult['post_image'] ?? '';
@@ -82,8 +92,8 @@ function preparePost(array $solrResult): array {
 		'post_title' => sanitiseString($postTitle),
 		'post_description' => truncatePostText(sanitiseString($postDescription)),
 		'post_description_full' => sanitiseString($postDescription),
-		'post_pub_date_sorter' => $momentFromVo->getRelative(),
-		'post_pub_date_full' => date('r', strtotime($solrResult['post_pub_date_sorter'])),
+		'post_pub_date_sorter' => $displayDate,
+		'post_pub_date_full' => date('r', $timestamp),
 		'site_id' => $siteId,
 		'site_name' => sanitiseString($siteName),
 		'site_host' => $siteHost,
