@@ -14,7 +14,13 @@
 {% block content %}
 <div class="contentContainer row">
 	<div class="mainContainer colMain">
-		<h2 class="pageTitle">Home</h2>
+		<h2 class="pageTitle">
+			{% if query == "" %}
+				Home
+			{% else %}
+				Search results
+			{% endif %}
+		</h2>
 		<div class="searchResultsControls">
 			<p class="searchResultsInfo">
 				{{ numResults }} results{% if numResults > 0 and ttlPages > 1 %}, page {{ pageNumber }} of {{ ttlPages }}{% endif %}
@@ -30,87 +36,12 @@
 						<input type="hidden" name="query"  value="{{ query }}" />
 						<input type="hidden" name="start"  value="{{ nextOffset }}" />
 						<input type="hidden" name="sorter"  value="{{ sorter }}" />
-						{% if customFrom != "" and customTo != "" %}
-							<input type="hidden" name="customFrom"  value="{{ customFrom }}" />
-							<input type="hidden" name="customTo"  value="{{ customTo }}" />
-						{% endif %}
 						<button class="searchButton pagination button" type="submit" name="submit">
 							Next page
 						</button>
 					</form>
 				</div>
 			{% endif %}
-		</div>
-	</div>
-	<div class="sidebarContainer colSide">
-		<div class="statsContainer">
-			{% if stats %}
-				<div class="statsCard">
-					<div class="statsCardHeader">
-						<h4 class="statsCardTitle"><i class="fas fa-film"></i> Trending anime</h4>
-						<p class="statsCardSubtitle">The most discussed anime this week.</p>
-					</div>
-					<div class="statsCardContent">
-						<ol class="statsCardList">
-							{% for animeTitle, freq in stats.trending_media %}
-								<li class="statsCardListItem"><a href="/index.php?query=&quot;{{ animeTitle|url_encode }}&quot;&sorter=post_pub_date_sorter%20desc">{{ animeTitle }}</a></li>
-							{% endfor %}
-						</ol>
-					</div>
-				</div>
-				<div class="statsCard">
-					<div class="statsCardHeader">
-						<h4 class="statsCardTitle"><i class="far fa-paper-plane"></i> Trending posts</h4>
-						<p class="statsCardSubtitle">This week's most clicked new posts.</p>
-					</div>
-					<div class="statsCardContent">
-						<ol class="statsCardList">
-							{% for postTitle, trendingPost in stats.trending_posts %}
-								<li class="statsCardListItem"><a href="/post.php?id={{ trendingPost.id }}">{{ postTitle }}</a> by {{ trendingPost.site_name }}</li>
-							{% endfor %}
-						</ol>
-					</div>
-				</div>
-				<div class="statsCard">
-					<div class="statsCardHeader">
-						<h4 class="statsCardTitle"><i class="fas fa-book-reader"></i> Trending bloggers</h4>
-						<p class="statsCardSubtitle">This week's most clicked anime bloggers.</p>
-					</div>
-					<div class="statsCardContent">
-						<ol class="statsCardList">
-							{% for siteName, ttlViews in stats.trending_bloggers %}
-								<li class="statsCardListItem">
-									<a href="/index.php?query=site_name%3A%22{{ siteName|url_encode }}%22&sorter=post_pub_date_sorter%20desc" onclick="app.searchBySiteName(this); return false;">{{ siteName }}</a>
-								</li>
-							{% endfor %}
-						</ol>
-					</div>
-				</div>
-			{% endif %}
-
-			<div class="statsCard">
-				<div class="statsCardHeader">
-					<h4 class="statsCardTitle"><i class="far fa-calendar-alt"></i> Customised date range</h4>
-					<p class="statsCardSubtitle">Find posts published between these dates.</p>
-				</div>
-				<div class="statsCardContent">
-					<form method="get" class="customDateForm">
-						<input type="hidden" name="query" value="{{ query }}">
-						<input type="hidden" name="sorter" value="post_pub_date_sorter asc">
-						<p class="customDateRow">
-							<label for="customFrom" class="customDateLabel">From</label>
-							<input type="date" id="customFrom" name="customFrom" class="customDate" value="{{ customFrom }}">
-						</p>
-						<p class="customDateRow">
-							<label for="customTo" class="customDateLabel">To</label>
-							<input type="date" id="customTo" name="customTo" class="customDate" value="{{ customTo }}">
-						</p>
-						<p class="customDateRow">
-							<input type="submit" value="Search" class="customDateSubmit">
-						</p>
-					</form>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
