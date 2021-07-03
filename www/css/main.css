@@ -460,7 +460,7 @@ a:hover {
 	line-height: 32px;
 }
 
-.text #content p, p.pageText {
+.text #content p, p.pageText, .text ul {
 	margin: 4px 0 12px;
 	font-size: 14px;
 	line-height: 20px;
@@ -525,6 +525,64 @@ a:hover {
 
 .postDate, .postTags {
 	color: var(--subdued-color);
+}
+
+.trendingAnimeContainer {
+	margin-top: 12px;
+}
+
+.trendingAnimeListItem {
+	border: 1px solid var(--main-border-color);
+	background-color: var(--element-bg-color);
+	border-radius: 5px;
+	margin-bottom: 5px;
+	padding: 15px;
+}
+
+.trendingAnimeTitle, .trendingPostsCount {
+	display: block;
+}
+
+.trendingAnimeTitle {
+	margin-bottom: 10px;
+}
+
+.trendingPostsCount {
+	padding: 10px 0 0;
+	border-top: 1px solid var(--main-border-color);
+	color: var(--subdued-color);
+}
+
+ul.trendingAnimeList {
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 20px;
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	padding: 15px;
+	list-style-type: none;
+	border: 1px solid var(--main-border-color);
+}
+
+.timeFilters {
+	display: flex;
+}
+
+.timeFilter {
+	border: 1px solid var(--main-border-color);
+	border-bottom: none;
+	border-right: none;
+	font-size: 14px;
+	padding: 15px;
+}
+
+.timeFilter:last-child {
+	border-right: 1px solid var(--main-border-color);
+}
+
+.timeFilter.selected {
+	background-color: var(--element-bg-color);
 }
 
 @media only screen and (min-width: 768px) {

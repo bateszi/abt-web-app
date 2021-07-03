@@ -1,0 +1,41 @@
+{% extends "base.twig" %}
+
+{% block title %}Trending anime{% endblock %}
+
+{% block bodyClass %}text{% endblock %}
+
+{% block pageHeader %}
+    {{ parent() }}
+
+    {{ include('partials/searchform.twig') }}
+{% endblock %}
+
+{% block content %}
+    <h2>Trending anime</h2>
+
+    <div class="trendingAnimeContainer">
+        <div class="timeFilters">
+            <div class="timeFilter {% if period == "3m" %}selected{% endif %}">
+                <a href="/trendinganime.php?r=3m">3 months</a>
+            </div>
+            <div class="timeFilter {% if period == "6m" %}selected{% endif %}">
+                <a href="/trendinganime.php?r=6m" class="">6 months</a>
+            </div>
+            <div class="timeFilter {% if period == "12m" %}selected{% endif %}">
+                <a href="/trendinganime.php?r=12m">12 months</a>
+            </div>
+        </div>
+
+        <ul class="trendingAnimeList">
+            {% for anime in relevantAnimeSeries %}
+                <li class="trendingAnimeListItem">
+                    <a class="trendingAnimeTitle" href="/index.php?query=%22{{ anime.title|url_encode }}%22&sorter=post_pub_date_sorter%20desc">{{ anime.title }}</a>
+                    <span class="trendingPostsCount">{{ anime.count }} posts found</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
