@@ -565,27 +565,30 @@ ul.trendingAnimeList {
 	border: 1px solid var(--main-border-color);
 }
 
-.timeFilters {
-	display: flex;
-}
-
 .timeFilter {
 	border: 1px solid var(--main-border-color);
-	border-bottom: none;
-	border-right: none;
 	font-size: 14px;
 	padding: 15px;
-}
-
-.timeFilter:last-child {
-	border-right: 1px solid var(--main-border-color);
+	border-bottom: none;
 }
 
 .timeFilter.selected {
-	background-color: var(--element-bg-color);
+	background-color: var(--main-border-color);
 }
 
 @media only screen and (min-width: 768px) {
+	.timeFilters {
+		display: flex;
+	}
+
+	.timeFilter {
+		border-right: none;
+	}
+
+	.timeFilter:last-child {
+		border-right: 1px solid var(--main-border-color);
+	}
+
 	#nav {
 		margin: 0 0 20px 0;
 	}
